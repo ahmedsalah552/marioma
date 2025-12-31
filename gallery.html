@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marioma | Gallery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <canvas id="snowCanvas"></canvas>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo">M & S ❤️</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="memories.html">Memories</a></li>
+            <li><a href="gallery.html" class="active">Gallery</a></li>
+            
+        </ul>
+        <button id="snowBtn" class="snow-btn">Let it Snow ❄️</button>
+    </nav>
+
+    <main class="content-wrapper">
+        
+        <!-- ================= قسم الصور (32 صورة) ================= -->
+        <h2 class="english-msg">Our Moments 📸</h2>
+        <div class="gallery-grid" id="photoGrid">
+            
+            <!-- الصور من 1 لـ 10 -->
+            <div class="media-item"><img src="assets/1.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+            <div class="media-item"><img src="assets/2.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+            <div class="media-item"><img src="assets/3.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+            <div class="media-item"><img src="assets/4.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+            <div class="media-item"><img src="assets/5.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+            <div class="media-item"><img src="assets/6.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+            <div class="media-item"><img src="assets/7.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+            <div class="media-item"><img src="assets/8.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+            <div class="media-item"><img src="assets/9.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+            <div class="media-item"><img src="assets/10.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+
+            <!-- الصور من 11 لـ 20 -->
+            <div class="media-item"><img src="assets/11.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+            <div class="media-item"><img src="assets/12.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+            <div class="media-item"><img src="assets/13.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+            <div class="media-item"><img src="assets/14.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+            <div class="media-item"><img src="assets/15.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+            <div class="media-item"><img src="assets/16.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+            <div class="media-item"><img src="assets/17.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+            <div class="media-item"><img src="assets/18.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+            <div class="media-item"><img src="assets/19.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+            <div class="media-item"><img src="assets/20.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+
+            <!-- الصور من 21 لـ 30 -->
+            <div class="media-item"><img src="assets/21.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+            <div class="media-item"><img src="assets/22.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+            <div class="media-item"><img src="assets/23.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+            <div class="media-item"><img src="assets/24.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+            <div class="media-item"><img src="assets/25.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+            <div class="media-item"><img src="assets/26.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+            <div class="media-item"><img src="assets/27.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+            <div class="media-item"><img src="assets/28.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+            <div class="media-item"><img src="assets/29.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+            <div class="media-item"><img src="assets/30.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+
+            <!-- باقي الصور -->
+            <div class="media-item"><img src="assets/31.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+            <div class="media-item"><img src="assets/32.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+<!-- الصور الإضافية (33, 34, 35) -->
+            <div class="media-item"><img src="assets/33.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+            <div class="media-item"><img src="assets/34.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+            <div class="media-item"><img src="assets/35.jpg" loading="lazy" onclick="openLightbox(this, 'img')"></div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- ================= قسم الفيديوهات (36 فيديو) ================= -->
+        <h2 class="english-msg">Our Videos 🎥</h2>
+        <div class="gallery-grid" id="videoGrid">
+            
+           
+            <!-- الفيديوهات من 11 لـ 20 -->
+            <div class="media-item"><video src="assets/video11.mp4" onclick="openLightbox(this, 'video')"></video><div class="play-icon"><i class="fas fa-play"></i></div></div>
+            <div class="media-item"><video src="assets/video12.mp4" onclick="openLightbox(this, 'video')"></video><div class="play-icon"><i class="fas fa-play"></i></div></div>
+            <div class="media-item"><video src="assets/video13.mp4" onclick="openLightbox(this, 'video')"></video><div class="play-icon"><i class="fas fa-play"></i></div></div>
+            <div class="media-item"><video src="assets/video14.mp4" onclick="openLightbox(this, 'video')"></video><div class="play-icon"><i class="fas fa-play"></i></div></div>
+            <div class="media-item"><video src="assets/video15.mp4" onclick="openLightbox(this, 'video')"></video><div class="play-icon"><i class="fas fa-play"></i></div></div>
+            <div class="media-item"><video src="assets/video16.mp4" onclick="openLightbox(this, 'video')"></video><div class="play-icon"><i class="fas fa-play"></i></div></div>
+            <div class="media-item"><video src="assets/video17.mp4" onclick="openLightbox(this, 'video')"></video><div class="play-icon"><i class="fas fa-play"></i></div></div>
+            <div class="media-item"><video src="assets/video18.mp4" onclick="openLightbox(this, 'video')"></video><div class="play-icon"><i class="fas fa-play"></i></div></div>
+            <div class="media-item"><video src="assets/video19.mp4" onclick="openLightbox(this, 'video')"></video><div class="play-icon"><i class="fas fa-play"></i></div></div>
+            <div class="media-item"><video src="assets/video20.mp4" onclick="openLightbox(this, 'video')"></video><div class="play-icon"><i class="fas fa-play"></i></div></div>
+
+            <!-- الفيديوهات من 21 لـ 30 -->
+            <div class="media-item"><video src="assets/video21.mp4" onclick="openLightbox(this, 'video')"></video><div class="play-icon"><i class="fas fa-play"></i></div></div>
+            <div class="media-item"><video src="assets/video22.mp4" onclick="openLightbox(this, 'video')"></video><div class="play-icon"><i class="fas fa-play"></i></div></div>
+            <div class="media-item"><video src="assets/video23.mp4" onclick="openLightbox(this, 'video')"></video><div class="play-icon"><i class="fas fa-play"></i></div></div>
+            <div class="media-item"><video src="assets/video24.mp4" onclick="openLightbox(this, 'video')"></video><div class="play-icon"><i class="fas fa-play"></i></div></div>
+            <div class="media-item"><video src="assets/video25.mp4" onclick="openLightbox(this, 'video')"></video><div class="play-icon"><i class="fas fa-play"></i></div></div>
+            <div class="media-item"><video src="assets/video26.mp4" onclick="openLightbox(this, 'video')"></video><div class="play-icon"><i class="fas fa-play"></i></div></div>
+            <div class="media-item"><video src="assets/video27.mp4" onclick="openLightbox(this, 'video')"></video><div class="play-icon"><i class="fas fa-play"></i></div></div>
+            <div class="media-item"><video src="assets/video28.mp4" onclick="openLightbox(this, 'video')"></video><div class="play-icon"><i class="fas fa-play"></i></div></div>
+            <div class="media-item"><video src="assets/video29.mp4" onclick="openLightbox(this, 'video')"></video><div class="play-icon"><i class="fas fa-play"></i></div></div>
+            <div class="media-item"><video src="assets/video30.mp4" onclick="openLightbox(this, 'video')"></video><div class="play-icon"><i class="fas fa-play"></i></div></div>
+
+            <!-- الفيديوهات من 31 لـ 36 -->
+            <div class="media-item"><video src="assets/video31.mp4" onclick="openLightbox(this, 'video')"></video><div class="play-icon"><i class="fas fa-play"></i></div></div>
+            <div class="media-item"><video src="assets/video32.mp4" onclick="openLightbox(this, 'video')"></video><div class="play-icon"><i class="fas fa-play"></i></div></div>
+            <div class="media-item"><video src="assets/video33.mp4" onclick="openLightbox(this, 'video')"></video><div class="play-icon"><i class="fas fa-play"></i></div></div>
+            <div class="media-item"><video src="assets/video34.mp4" onclick="openLightbox(this, 'video')"></video><div class="play-icon"><i class="fas fa-play"></i></div></div>
+            <div class="media-item"><video src="assets/video35.mp4" onclick="openLightbox(this, 'video')"></video><div class="play-icon"><i class="fas fa-play"></i></div></div>
+            <div class="media-item"><video src="assets/video36.mp4" onclick="openLightbox(this, 'video')"></video><div class="play-icon"><i class="fas fa-play"></i></div></div>
+
+        </div>
+
+    </main>
+
+    <!-- الـ Lightbox (نفس الكود القديم بس عشان يبقى كامل معاك) -->
+    <div id="lightbox" class="lightbox">
+        <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
+        <a class="prev" onclick="changeMedia(-1)">&#10094;</a>
+        <div class="lightbox-content">
+            <img id="lightbox-img" src="" style="display:none;">
+            <video id="lightbox-video" controls style="display:none;"></video>
+        </div>
+        <a class="next" onclick="changeMedia(1)">&#10095;</a>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

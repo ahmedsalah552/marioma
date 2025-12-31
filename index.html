@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marioma | Home</title>
+    <!-- الفونتات -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Poppins:wght@400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <canvas id="snowCanvas"></canvas>
+
+    <nav class="navbar">
+        <!-- التعديل الأول: القلب الأحمر -->
+        <a href="index.html" class="logo">M & S ❤️</a>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="memories.html">Memories</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            
+        </ul>
+        <button id="snowBtn" class="snow-btn">Let it Snow ❄️</button>
+    </nav>
+
+    <main class="content-wrapper home-content">
+        <!-- الكلام الجديد -->
+        <h1 class="arabic-msg">بما اننا انهاردة مش عارفين نكون مع بعض حبيت ادور علي احلي قفلة للسنة و حسيت دي هتبقي حلوة</h1>
+        
+        <h2 class="english-msg">To Marioma, the girl I love most.</h2>
+
+        <!-- الظرف (Envelope) -->
+        <div class="envelope-container" onclick="openMessage()">
+            <div class="envelope">
+                <div class="envelope-flap"></div>
+                <div class="envelope-pocket"></div>
+                <!-- ختم القلب -->
+                <div class="heart-seal">❤️</div>
+            </div>
+            <p class="click-hint">(دوسي على القلب)</p>
+        </div>
+    </main>
+
+    <!-- الويندو اللي هتفتح (Modal) -->
+    <div id="messageModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeMessage()">&times;</span>
+            <h2>From Salah To my soulmate</h2>
+            <p id="secretMessage">
+                السنة دي بلنسبالي مهمة اوي لانها زي كل السنين الفاتت كنت داخلهم و مش مستني منهم حاجة و لحد ما عدي 3 اربعها كان مفيهاش اي حاجة مميزة تخليني افتكرها اصلا لحد ما شوفتك و هنا الموضوع اتغير تماما بقت سنة عمري ما هنساها عشان لقيتك فيها عايز اقولك انك احلي حاجة حصلتلي و ان انا بجد بحبك اوي و مش هعرف احب حد بعدك و مش عايز يبقي في بعدك اصلا و عايزك تعرفي اني دايما جمبك و فضهرك و ان انتي مسئوليتي لازم اخليكي متطمنة وانتي معايا و هفضل واخد بالي منك و ابقي أمان ليكي و ان عمري ما هيهون عليا زعلك ولا فيوم هكون سبب فأي اذي ليكي و خليكي متأكدة انك عمرك ما كنتي تقيلة عليا ولا اضايقت منك و اني بحبك زي منتي و ببقي فاهم انتي حاسه بايه من غير ما تقولي و ان انتي بجد احلي واحدة شوفتها فحياتي و اني بجد بقت دعوتي الوحيدة فكل صلاة ان ربنا يخليكي ليا و تفضلي جمبي العمر كله 2026 ان شاء الله هتكون حلوة و مختلفة لاني داخلها و انتي معايا و ده بلنسبالي كفاية اوي مش عايز حاجة تاني طول ما انتي جمبي
+                <br><br>
+                كل سنة وأنتي معايا بموت فيكي يا مريومة والله.
+            </p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
