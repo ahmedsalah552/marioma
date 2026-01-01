@@ -583,3 +583,138 @@ body.snow-mode #snowCanvas {
     .arabic-msg { font-size: 1.4rem; }
     .english-msg { font-size: 2rem; }
 }
+/* =========================================
+   11. صفحة الأسباب (البرطمان + الصندوق البينك)
+   ========================================= */
+
+/* --- 1. البرطمان (زي ما هو شغال تمام) --- */
+.jar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    cursor: pointer;
+    transition: transform 0.3s;
+    margin-top: 20px;
+}
+
+.jar-container:hover {
+    transform: scale(1.05) rotate(5deg);
+}
+
+.glass {
+    width: 150px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.3);
+    border: 4px solid #fff;
+    border-radius: 20px 20px 40px 40px;
+    position: relative;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+}
+
+.lid {
+    width: 160px;
+    height: 25px;
+    background: #F4C2C2;
+    border-radius: 10px;
+    margin-bottom: -5px;
+    position: relative;
+    z-index: 2;
+    border: 2px solid white;
+}
+
+/* ورق ملون جوه البرطمان */
+.paper-fold {
+    position: absolute;
+    width: 40px;
+    height: 30px;
+    background-color: #F4C2C2;
+    border-radius: 5px;
+    opacity: 0.8;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+}
+.p1 { top: 150px; left: 20px; transform: rotate(15deg); background: #ffdae0; }
+.p2 { top: 120px; left: 80px; transform: rotate(-20deg); background: #fff; }
+.p3 { top: 160px; left: 60px; transform: rotate(45deg); background: #ffe4e1; }
+.p4 { top: 100px; left: 40px; transform: rotate(10deg); background: #ffc0cb; }
+.p5 { top: 140px; left: 100px; transform: rotate(-10deg); background: #fff0f5; }
+
+
+/* --- 2. الصندوق البينك الجديد (التعديل الأخير) --- */
+
+#paperModal .modal-content {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    width: auto !important; 
+}
+
+.reason-box {
+    /* غيرنا الخلفية للون وردي غامق عشان الأبيض يبان */
+    background-color: #d8a7b1 !important; 
+    border: 4px solid #fff !important; /* الفريم أبيض */
+    border-radius: 20px !important;
+    padding: 50px 30px !important;
+    width: 90% !important;
+    max-width: 500px !important;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4) !important;
+    animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popUp {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* العنوان */
+.reason-title {
+    font-family: 'Poppins', sans-serif !important;
+    color: #ffffff !important; /* أبيض */
+    font-size: 1.4rem !important;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 30px !important;
+    border-bottom: 2px solid rgba(255,255,255,0.5);
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+/* النص (الفونت الجديد) */
+.reason-text {
+    font-family: 'Caveat', cursive !important; /* فونت أنعم وأشيك */
+    font-size: 2.4rem !important; /* كبرناه عشان يبقى واضح */
+    color: #ffffff !important; /* أبيض ناصع */
+    line-height: 1.5 !important;
+    font-weight: normal !important;
+    margin: 20px 0 !important;
+    direction: rtl;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* ظل خفيف للكلام */
+}
+
+/* التوقيع */
+.signature {
+    font-family: 'Caveat', cursive !important;
+    font-size: 1.8rem !important;
+    color: #ffffff !important;
+    margin-top: 30px;
+    text-align: right;
+    opacity: 0.9;
+}
+
+/* زرار الغلق */
+.reason-box .close-btn {
+    top: 15px !important;
+    right: 20px !important;
+    color: #ffffff !important;
+    font-size: 35px !important;
+    opacity: 0.7;
+    transition: 0.3s;
+}
+.reason-box .close-btn:hover {
+    opacity: 1;
+    transform: rotate(90deg);
+}
