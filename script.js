@@ -215,3 +215,60 @@ document.addEventListener('keydown', function(event) {
         }
     }
 });
+
+/* =========================================
+   6. منطق برطمان السعادة (Reasons Jar)
+   ========================================= */
+
+const reasons = [
+    "بحب طيبة قلبك اللي بتسامح دايماً و انك علي طبيعتك و دي احلي حاجة فيكي",
+    "عشان أنتي السند وقفتي جنبي لما الدنيا مالت.",
+    "بحب ضحكتك اوي.",
+    "عشان بحس انك مسئوليتي و دايما عايز اشوفك كويسة.",
+    "بحب إنك بتحاولي تكوني أحسن عشانك وعشاننا.",
+    "بحب الفرحة الي بشوفها فعينك لما اجيبلك هدية حلوة.",
+    "بحب غيرتك عليا حتى لو بتداريها.",
+    "عشان أنتي السبب في النسخة الحلوة اللي طلعت مني.",
+    "بحب إنك بتصدقيني و واثقة فيا.",
+    "عشان احلي واحدة انا شوفتها.",
+    "بحب جنانك و العبط الي بنعمله سوا.",
+    "عشان أنتي أماني و اول واحدة بتيجي فبالي لما بكون متضايق.",
+    "بحب اني بقيت افهمك من غير ما تتكلمي و بقيت فاهم انتي حاسه بايه من ناحيتي من غير ما تقولي.",
+    "عشان اول مره اعرف اني  ممكن احب كده و اعمل حجات عمري معملتها عشان حد بحبه.",
+    "بحب اكلك و بفرح اوي لما بتعمليه عشاني.",
+    "عشان شاطرة و ذكية و عايزة تحققي حجات كتير فحياتك.",
+    "بحب كسوفك لما بقولك كلمة حلوة.",
+    "عشان أنتي مريومة حبيبتي.. وكفاية إنك مريومة."
+];
+
+const paperModal = document.getElementById('paperModal');
+const reasonText = document.getElementById('reasonText');
+const reasonNum = document.getElementById('reasonNum');
+
+function openPaper() {
+    // اختيار سبب عشوائي
+    const randomIndex = Math.floor(Math.random() * reasons.length);
+    const randomReason = reasons[randomIndex];
+
+    // وضع النص في الورقة
+    if(reasonText) reasonText.innerText = randomReason;
+    if(reasonNum) reasonNum.innerText = randomIndex + 1;
+
+    // فتح المودال
+    if(paperModal) paperModal.style.display = "flex";
+}
+
+function closePaper() {
+    if(paperModal) paperModal.style.display = "none";
+}
+
+// قفل الورقة عند الضغط خارجها
+window.onclick = function(event) {
+    if (event.target == paperModal) {
+        closePaper();
+    }
+    // (للحفاظ على كود الهوم شغال برضه)
+    if (event.target == modal) {
+        closeMessage();
+    }
+}
