@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marioma | Reasons</title>
+    <!-- الفونتات: Cairo للعربي، Poppins للعناوين، Indie Flower لخط اليد -->
+    <!-- زودنا فونت Caveat -->
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Caveat:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- خلفية التلج -->
+    <canvas id="snowCanvas"></canvas>
+
+    <!-- النافيجيشن بار -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">M & S ❤️</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="memories.html">Memories</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="why.html" class="active">Reasons</a></li> <!-- Active Here -->
+            
+        </ul>
+        <button id="snowBtn" class="snow-btn">Let it Snow ❄️</button>
+    </nav>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="content-wrapper">
+        <h2 class="english-msg">Why I Love You? </h2>
+        
+
+        <!-- البرطمان (CSS Art) -->
+        <div class="jar-container" onclick="openPaper()">
+            <div class="jar">
+                <div class="lid"></div>
+                <div class="glass">
+                    <!-- ورق ملون جوه البرطمان -->
+                    <div class="paper-fold p1"></div>
+                    <div class="paper-fold p2"></div>
+                    <div class="paper-fold p3"></div>
+                    <div class="paper-fold p4"></div>
+                    <div class="paper-fold p5"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- المودال الجديد (بوكس بينك شيك وبسيط) -->
+    <div id="paperModal" class="modal">
+        <!-- استخدمنا كلاس reason-box للتنسيق الجديد -->
+        <div class="modal-content reason-box">
+            <span class="close-btn" onclick="closePaper()">&times;</span>
+            
+            <h3 class="reason-title">Reason #<span id="reasonNum">1</span></h3>
+            
+            <!-- النص هنا هيتغير بالجافاسكريبت -->
+            <p id="reasonText" class="reason-text">
+                Loading...
+            </p>
+            
+            <div class="signature">❤️ Salah</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
