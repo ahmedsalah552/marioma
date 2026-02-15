@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>World 4: Valentine's Letter 💕</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden;background:#0a0414;font-family:'Press Start 2P',cursive}
+
+canvas{position:fixed;inset:0;z-index:0}
+
+/* ============ INTRO OVERLAY ============ */
+.overlay{
+  position:fixed;inset:0;z-index:100;
+  display:none;align-items:center;justify-content:center;
+  flex-direction:column;text-align:center;
+}
+.overlay.show{display:flex}
+
+.intro-bg{background:rgba(10,4,20,.95)}
+.intro-hearts{font-size:32px;margin-bottom:15px;letter-spacing:10px;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+
+.intro-title{
+  font-size:22px;color:#FF6B8A;
+  text-shadow:0 0 30px rgba(255,107,138,.5),0 0 60px rgba(255,107,138,.2),2px 2px 0 #000;
+  margin-bottom:10px;
+}
+.intro-sub{font-size:9px;color:#CC8899;margin-bottom:30px;line-height:2.5}
+.intro-btn{
+  font-family:'Press Start 2P',cursive;font-size:13px;
+  color:#FFF;
+  background:linear-gradient(180deg,#E84070,#C03060);
+  border:none;border-radius:6px;padding:16px 50px;cursor:pointer;
+  box-shadow:0 4px 0 #801838,0 0 30px rgba(232,64,112,.4);
+  animation:btnGlow 2s ease-in-out infinite;
+  transition:all .1s;pointer-events:auto;
+}
+.intro-btn:hover{background:linear-gradient(180deg,#F05080,#D04070);transform:scale(1.04)}
+.intro-btn:active{transform:translateY(4px);box-shadow:0 0 0 #801838}
+@keyframes btnGlow{
+  0%,100%{box-shadow:0 4px 0 #801838,0 0 25px rgba(232,64,112,.3)}
+  50%{box-shadow:0 4px 0 #801838,0 0 45px rgba(232,64,112,.6)}
+}
+
+/* ============ LETTER CONTAINER ============ */
+.letter-container{
+  position:fixed;inset:0;z-index:50;
+  display:none;overflow-y:auto;overflow-x:hidden;
+  background:linear-gradient(180deg,#1A0820,#0A0414);
+  scroll-behavior:smooth;
+}
+.letter-container.show{display:block}
+
+/* Floating photos */
+.photo-float{
+  position:absolute;
+  border:4px solid #FFF;
+  border-radius:6px;
+  box-shadow:0 5px 25px rgba(0,0,0,0.5),0 0 15px rgba(255,100,140,0.15);
+  overflow:hidden;
+  z-index:2;
+  transition:transform 0.4s cubic-bezier(.34,1.56,.64,1),box-shadow 0.3s;
+  cursor:pointer;
+}
+.photo-float:hover{
+  transform:scale(1.15) rotate(0deg)!important;
+  box-shadow:0 8px 40px rgba(255,100,140,0.4),0 0 30px rgba(255,100,140,0.2);
+  z-index:10;
+}
+.photo-float img{
+  width:100%;height:100%;object-fit:cover;display:block;
+}
+
+/* Photo label */
+.photo-float::after{
+  content:'💕';
+  position:absolute;bottom:-2px;right:-2px;
+  font-size:12px;
+  filter:drop-shadow(0 0 3px rgba(255,100,140,0.5));
+}
+
+/* ============ LETTER CARD ============ */
+.letter-wrapper{
+  position:relative;z-index:5;
+  display:flex;justify-content:center;
+  padding:80px 20px 120px;
+  min-height:100%;
+}
+
+.letter-card{
+  width:750px;max-width:94vw;
+  background:linear-gradient(180deg,#FFF0F4,#FFE4EC,#FFF0F4);
+  border:5px solid #E8A0B0;
+  border-radius:16px;
+  box-shadow:
+    0 0 80px rgba(255,100,140,.2),
+    0 0 150px rgba(255,100,140,.08),
+    inset 0 0 30px rgba(255,150,180,.1);
+  padding:40px 35px;
+  position:relative;
+  animation:letterIn 1s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes letterIn{
+  0%{transform:scale(0) rotate(10deg);opacity:0}
+  60%{transform:scale(1.02) rotate(-1deg);opacity:1}
+  100%{transform:scale(1) rotate(0);opacity:1}
+}
+
+/* Decorative corners */
+.letter-card::before,.letter-card::after{
+  content:'';position:absolute;width:60px;height:60px;
+  border:3px solid rgba(232,100,140,0.3);
+}
+.letter-card::before{top:10px;left:10px;border-right:0;border-bottom:0;border-radius:8px 0 0 0}
+.letter-card::after{bottom:10px;right:10px;border-left:0;border-top:0;border-radius:0 0 8px 0}
+
+/* Header */
+.lc-header{text-align:center;margin-bottom:25px}
+.lc-icon{font-size:40px;margin-bottom:10px;display:block;animation:heartBeat 1.5s ease-in-out infinite}
+@keyframes heartBeat{
+  0%,100%{transform:scale(1)}
+  15%{transform:scale(1.15)}
+  30%{transform:scale(1)}
+  45%{transform:scale(1.1)}
+}
+.lc-title{
+  font-family:'Dancing Script',cursive;
+  font-size:36px;color:#D04060;
+  text-shadow:0 0 20px rgba(208,64,96,.2);
+  margin-bottom:8px;
+}
+.lc-subtitle{
+  font-family:'Press Start 2P',cursive;
+  font-size:7px;color:#CC8899;letter-spacing:2px;
+}
+.lc-divider{
+  width:80%;height:3px;margin:20px auto;
+  background:linear-gradient(90deg,transparent,#E8A0B0,#FF6B8A,#E8A0B0,transparent);
+  border-radius:2px;
+}
+
+/* Message body */
+.lc-message{
+  direction:rtl;text-align:right;
+  font-family:'Noto Naskh Arabic',serif;
+  font-size:20px;line-height:2.2;
+  color:#6A3050;
+  padding:10px 5px;
+}
+.lc-message p{margin-bottom:20px}
+.lc-message .highlight{
+  color:#D04060;font-weight:700;
+  text-shadow:0 0 8px rgba(208,64,96,.15);
+}
+.lc-message .emoji-line{
+  text-align:center;font-size:28px;
+  letter-spacing:8px;margin:25px 0;
+  direction:ltr;
+}
+
+/* Signature */
+.lc-signature{
+  text-align:center;margin-top:30px;
+  padding-top:20px;
+  border-top:2px solid rgba(232,160,176,0.4);
+}
+.lc-sign-heart{font-size:32px;display:block;margin-bottom:8px}
+.lc-sign-text{
+  font-family:'Dancing Script',cursive;
+  font-size:28px;color:#D04060;
+}
+.lc-sign-date{
+  font-family:'Press Start 2P',cursive;
+  font-size:6px;color:#CC8899;
+  margin-top:10px;display:block;
+}
+
+/* Footer nav */
+.lc-footer{
+  display:flex;justify-content:center;gap:15px;
+  margin-top:30px;padding-top:20px;
+  border-top:1px solid rgba(232,160,176,0.3);
+}
+.btn-f{
+  font-family:'Press Start 2P',cursive;font-size:7px;
+  padding:12px 22px;border-radius:5px;cursor:pointer;
+  border:none;transition:all .12s;pointer-events:auto;
+}
+.btn-map{color:#FFF;background:#888;box-shadow:0 3px 0 #555}
+.btn-map:hover{background:#999}
+.btn-map:active{transform:translateY(3px);box-shadow:none}
+.btn-replay{color:#FFF;background:#E84070;box-shadow:0 3px 0 #A02848}
+.btn-replay:hover{background:#F05080}
+.btn-replay:active{transform:translateY(3px);box-shadow:none}
+
+/* Photo strip sections */
+.photo-strip{
+  display:flex;justify-content:center;flex-wrap:wrap;gap:12px;
+  margin:30px 0;padding:15px;
+  background:rgba(255,100,140,0.05);
+  border-radius:12px;
+  border:1px dashed rgba(232,160,176,0.3);
+}
+.photo-strip-item{
+  width:100px;height:100px;
+  border:3px solid #FFF;border-radius:6px;
+  overflow:hidden;
+  box-shadow:0 3px 15px rgba(0,0,0,0.2);
+  transition:transform 0.3s;cursor:pointer;
+}
+.photo-strip-item:hover{transform:scale(1.1) rotate(-2deg)}
+.photo-strip-item img{width:100%;height:100%;object-fit:cover}
+
+/* Lightbox */
+.lightbox{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(0,0,0,0.9);
+  display:none;align-items:center;justify-content:center;
+  cursor:pointer;
+}
+.lightbox.show{display:flex}
+.lightbox img{
+  max-width:90vw;max-height:85vh;
+  border:5px solid #FFF;border-radius:10px;
+  box-shadow:0 0 60px rgba(255,100,140,0.3);
+  animation:lbIn 0.4s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes lbIn{0%{transform:scale(0.5);opacity:0}100%{transform:scale(1);opacity:1}}
+.lightbox .lb-close{
+  position:absolute;top:20px;right:25px;
+  font-size:24px;color:#FFF;cursor:pointer;
+  font-family:'Press Start 2P',cursive;
+  text-shadow:0 0 10px rgba(255,100,140,0.5);
+}
+.lightbox .lb-nav{
+  position:absolute;top:50%;transform:translateY(-50%);
+  font-size:30px;color:#FFF;cursor:pointer;
+  padding:20px;user-select:none;
+  text-shadow:0 0 10px rgba(255,100,140,0.5);
+  transition:transform 0.2s;
+}
+.lightbox .lb-nav:hover{transform:translateY(-50%) scale(1.2)}
+.lb-prev{left:10px}
+.lb-next{right:10px}
+
+@media(max-width:600px){
+  .lc-title{font-size:26px}
+  .lc-message{font-size:17px;line-height:2.4}
+  .letter-card{padding:25px 18px}
+  .photo-float{display:none}
+  .photo-strip-item{width:75px;height:75px}
+  .lc-message .emoji-line{font-size:22px}
+}
+</style>
+</head>
+<body>
+
+<canvas id="bgCanvas"></canvas>
+
+<!-- ============ INTRO ============ -->
+<div class="overlay intro-bg show" id="oIntro">
+  <div class="intro-hearts">💕 💌 💕</div>
+  <div class="intro-title">WORLD 4</div>
+  <div class="intro-sub">
+    You've completed the journey...<br>
+    Now read what's in my heart 💕
+  </div>
+  <button class="intro-btn" id="btnOpen">💌 Open Letter</button>
+</div>
+
+<!-- ============ LIGHTBOX ============ -->
+<div class="lightbox" id="lightbox">
+  <div class="lb-close" id="lbClose">✕</div>
+  <div class="lb-nav lb-prev" id="lbPrev">❮</div>
+  <div class="lb-nav lb-next" id="lbNext">❯</div>
+  <img id="lbImg" src="" alt="photo">
+</div>
+
+<!-- ============ LETTER ============ -->
+<div class="letter-container" id="letterContainer">
+
+  <!-- Floating photos around the letter (desktop) -->
+  <div class="photo-float" style="width:120px;height:150px;top:40px;left:3%;transform:rotate(-8deg)">
+    <img src="assets/1.jpg" alt="us" onclick="openLightbox(0)">
+  </div>
+  <div class="photo-float" style="width:110px;height:130px;top:30px;right:3%;transform:rotate(6deg)">
+    <img src="assets/2.jpg" alt="us" onclick="openLightbox(1)">
+  </div>
+  <div class="photo-float" style="width:130px;height:140px;top:250px;left:2%;transform:rotate(5deg)">
+    <img src="assets/3.jpg" alt="us" onclick="openLightbox(2)">
+  </div>
+  <div class="photo-float" style="width:115px;height:145px;top:280px;right:2.5%;transform:rotate(-7deg)">
+    <img src="assets/4.jpg" alt="us" onclick="openLightbox(3)">
+  </div>
+  <div class="photo-float" style="width:125px;height:135px;top:480px;left:1.5%;transform:rotate(-4deg)">
+    <img src="assets/5.jpg" alt="us" onclick="openLightbox(4)">
+  </div>
+  <div class="photo-float" style="width:110px;height:140px;top:500px;right:3%;transform:rotate(8deg)">
+    <img src="assets/6.jpg" alt="us" onclick="openLightbox(5)">
+  </div>
+  <div class="photo-float" style="width:120px;height:130px;top:720px;left:2.5%;transform:rotate(6deg)">
+    <img src="assets/7.jpg" alt="us" onclick="openLightbox(6)">
+  </div>
+  <div class="photo-float" style="width:130px;height:150px;top:750px;right:2%;transform:rotate(-5deg)">
+    <img src="assets/8.jpg" alt="us" onclick="openLightbox(7)">
+  </div>
+  <div class="photo-float" style="width:115px;height:135px;top:970px;left:3%;transform:rotate(-7deg)">
+    <img src="assets/9.jpg" alt="us" onclick="openLightbox(8)">
+  </div>
+  <div class="photo-float" style="width:120px;height:140px;top:1000px;right:2.5%;transform:rotate(4deg)">
+    <img src="assets/10.jpg" alt="us" onclick="openLightbox(9)">
+  </div>
+  <div class="photo-float" style="width:125px;height:145px;top:1230px;left:2%;transform:rotate(5deg)">
+    <img src="assets/11.jpg" alt="us" onclick="openLightbox(10)">
+  </div>
+  <div class="photo-float" style="width:110px;height:130px;top:1260px;right:3%;transform:rotate(-6deg)">
+    <img src="assets/12.jpg" alt="us" onclick="openLightbox(11)">
+  </div>
+  <div class="photo-float" style="width:130px;height:140px;top:1480px;left:2.5%;transform:rotate(-3deg)">
+    <img src="assets/13.jpg" alt="us" onclick="openLightbox(12)">
+  </div>
+  <div class="photo-float" style="width:120px;height:150px;top:1500px;right:2%;transform:rotate(7deg)">
+    <img src="assets/14.jpg" alt="us" onclick="openLightbox(13)">
+  </div>
+  <div class="photo-float" style="width:115px;height:135px;top:1720px;left:3%;transform:rotate(6deg)">
+    <img src="assets/15.jpg" alt="us" onclick="openLightbox(14)">
+  </div>
+  <div class="photo-float" style="width:125px;height:140px;top:1750px;right:2.5%;transform:rotate(-5deg)">
+    <img src="assets/16.jpg" alt="us" onclick="openLightbox(15)">
+  </div>
+  <div class="photo-float" style="width:120px;height:145px;top:1960px;left:2%;transform:rotate(-4deg)">
+    <img src="assets/17.jpg" alt="us" onclick="openLightbox(16)">
+  </div>
+  <div class="photo-float" style="width:130px;height:130px;top:1980px;right:3%;transform:rotate(5deg)">
+    <img src="assets/18.jpg" alt="us" onclick="openLightbox(17)">
+  </div>
+  <div class="photo-float" style="width:115px;height:150px;top:2200px;left:2.5%;transform:rotate(7deg)">
+    <img src="assets/19.jpg" alt="us" onclick="openLightbox(18)">
+  </div>
+  <div class="photo-float" style="width:125px;height:140px;top:2220px;right:2%;transform:rotate(-6deg)">
+    <img src="assets/20.jpg" alt="us" onclick="openLightbox(19)">
+  </div>
+
+  <!-- Letter wrapper -->
+  <div class="letter-wrapper">
+    <div class="letter-card">
+
+      <div class="lc-header">
+        <span class="lc-icon">💌</span>
+        <div class="lc-title">To My Everything</div>
+        <div class="lc-subtitle">WORLD 4 — THE FINAL LEVEL</div>
+        <div class="lc-divider"></div>
+      </div>
+
+      <!-- PHOTO STRIP 1 -->
+      <div class="photo-strip">
+        <div class="photo-strip-item"><img src="assets/1.jpg" onclick="openLightbox(0)"></div>
+        <div class="photo-strip-item"><img src="assets/2.jpg" onclick="openLightbox(1)"></div>
+        <div class="photo-strip-item"><img src="assets/3.jpg" onclick="openLightbox(2)"></div>
+        <div class="photo-strip-item"><img src="assets/4.jpg" onclick="openLightbox(3)"></div>
+        <div class="photo-strip-item"><img src="assets/5.jpg" onclick="openLightbox(4)"></div>
+      </div>
+
+            <div class="lc-message">
+
+        <p>يا أجمل حاجة حصلتلي في حياتي...</p>
+
+        <p>من أول يوم شوفتك فيه في باص دهب و أنا عارف إن حياتي اتغيرت... كنت قاعد عادي مش فارق معايا حاجة وفجأة بصيت لقيتك قدامي... <span class="highlight">كأن ربنا باعتلي هدية مكنتش أستاهلها</span></p>
+
+        <p class="emoji-line">💕 🚌 💕</p>
+
+        <p>لما روحنا دهب مع بعض و غطسنا و لعبنا و روحنا الرحلات كانت من أحلى ايام حياتي... مع اني مكنتش لسه معاكي بس مجرد اني شايفك حسيت إن الدنيا كلها وقفت... <span class="highlight">مكنش فيه غير أنا وأنتي و البحر</span>... كأن ربنا خلق المكان ده عشان اللحظة دي بس</p>
+
+        <p class="emoji-line">🤿 🌊 💎</p>
+
+      </div>
+
+      <!-- PHOTO STRIP 2 -->
+      <div class="photo-strip">
+        <div class="photo-strip-item"><img src="assets/6.jpg" onclick="openLightbox(5)"></div>
+        <div class="photo-strip-item"><img src="assets/7.jpg" onclick="openLightbox(6)"></div>
+        <div class="photo-strip-item"><img src="assets/8.jpg" onclick="openLightbox(7)"></div>
+        <div class="photo-strip-item"><img src="assets/9.jpg" onclick="openLightbox(8)"></div>
+        <div class="photo-strip-item"><img src="assets/10.jpg" onclick="openLightbox(9)"></div>
+      </div>
+
+      <div class="lc-message">
+
+        <p>وبعدين رجعنا القاهرة ودخلنا انكتس مع بعض... <span class="highlight">كان أحلى قرار في حياتي</span>... مش عشان التيم بس... عشان كنت بشوفك كل يوم وكنا بنشتغل مع بعض وبنسهر مع بعض عالشغل</p>
+
+        <p>كل presentation كنتي جنبي... كل competition كنتي سندي... كل لحظة ضعف كنتي القوة بتاعتي... <span class="highlight">انتي مش بس حد بحبه... انتي الپارتنر بتاعي في كل حاجة</span></p>
+
+        <p class="emoji-line">💡 🏆 👥</p>
+
+        <p>عارفة إيه أكتر حاجة بحبها فيكي؟ إنك بتفهميني من غير ما أتكلم... بتحسي بيا من غير ما أقول... بتسنديني من غير ما أطلب... <span class="highlight">انتي الأمان بتاعي في الدنيا </span></p>
+
+        <p>كل يوم بيعدي عليا معاكي بحس إني أغنى واحد في الدنيا... مش عشان عندي كل حاجة... <span class="highlight">عشان عندي أنتي وأنتي كل حاجة</span></p>
+
+        <p class="emoji-line">💕 🌙 ✨</p>
+
+      </div>
+
+      <!-- PHOTO STRIP 3 -->
+      <div class="photo-strip">
+        <div class="photo-strip-item"><img src="assets/11.jpg" onclick="openLightbox(10)"></div>
+        <div class="photo-strip-item"><img src="assets/12.jpg" onclick="openLightbox(11)"></div>
+        <div class="photo-strip-item"><img src="assets/13.jpg" onclick="openLightbox(12)"></div>
+        <div class="photo-strip-item"><img src="assets/14.jpg" onclick="openLightbox(13)"></div>
+        <div class="photo-strip-item"><img src="assets/15.jpg" onclick="openLightbox(14)"></div>
+      </div>
+
+      <div class="lc-message">
+
+        <p>عارفة لما الواحد بيحلم بحاجة طول عمره وفجأة يلاقيها قدامه؟ <span class="highlight">ده بالظبط اللي حصل لما قابلتك</span>... كنت بحلم بحد يفهمني ويكمّلني ويبقى سندي... ولقيتك أنتي أحلى من أي حلم</p>
+
+        <p>بحب فيكي ضحكتك اللي بتنور الدنيا... بحب فيكي عيونك اللي مفيش احلي منها... بحب فيكي قلبك الطيب اللي مفيش زيه... <span class="highlight">بحب فيكي إنك أنتي</span></p>
+
+        <p class="emoji-line">😍 💖 🥰</p>
+
+        <p>وعارفة إيه كمان؟ <span class="highlight">أنا مش بس بحبك... أنا بختارك كل يوم من أول ما بصحى لحد ما بنام</span>... بختارك في كل لحظة فرح وكل لحظة تعب... بختارك في الحلو والوحش... بختارك أنتي وبس</p>
+
+        <p>كل ذكرى ليا معاكي هي أحلى ذكرى في حياتي... من باص دهب للبلو هول لانكتس لكل يوم عادي قضيناه مع بعض... <span class="highlight">كل لحظة معاكي هي لحظة مش هنساها عمري</span></p>
+
+        <p class="emoji-line">🚌 🌊 🏆 💕</p>
+
+      </div>
+
+      <!-- PHOTO STRIP 4 -->
+      <div class="photo-strip">
+        <div class="photo-strip-item"><img src="assets/16.jpg" onclick="openLightbox(15)"></div>
+        <div class="photo-strip-item"><img src="assets/17.jpg" onclick="openLightbox(16)"></div>
+        <div class="photo-strip-item"><img src="assets/18.jpg" onclick="openLightbox(17)"></div>
+        <div class="photo-strip-item"><img src="assets/19.jpg" onclick="openLightbox(18)"></div>
+        <div class="photo-strip-item"><img src="assets/20.jpg" onclick="openLightbox(19)"></div>
+      </div>
+
+      <div class="lc-message">
+
+        <p>النهاردة يوم الفلانتين وأنا مش عارف أقولك إيه غير...</p>
+
+        <p style="text-align:center;font-size:26px;color:#D04060;font-weight:700;margin:25px 0;line-height:2">
+          أنتي أحلى حاجة في حياتي<br>
+          أنتي البيت اللي بلجأله<br>
+          أنتي الأمان اللي بدور عليه<br>
+          أنتي الحب اللي كنت بحلم بيه<br>
+          <span style="font-size:30px">أنتي كل حاجة 💕</span>
+        </p>
+
+        <p><span class="highlight">Happy Valentine's Day يا أجمل إنسانة في الدنيا</span>... وكل سنة وأنتي معايا وأنا معاكي... وكل سنة وإحنا أحلى وأقرب وأحن...</p>
+
+        <p class="emoji-line">💝 🌹 💍 🌹 💝</p>
+
+        <p style="text-align:center;font-size:18px;color:#D04060;margin-top:10px">بحبك من هنا للقمر ورجوع... وبعدين رايح تاني 🌙💕</p>
+
+      </div>
+
+      <!-- SIGNATURE -->
+      <div class="lc-signature">
+        <span class="lc-sign-heart">💕</span>
+        <div class="lc-sign-text">Forever Yours</div>
+        <span class="lc-sign-date">Valentine's Day 2025 💌</span>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="lc-footer">
+        <button class="btn-f btn-map" onclick="window.location.href='storybook.html'">◀ MAP</button>
+        <button class="btn-f btn-replay" onclick="window.location.href='stage1.html'">🔄 REPLAY ALL</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+
+/* ============================================================
+   BACKGROUND CANVAS — Hearts & Stars
+============================================================ */
+var canvas=document.getElementById('bgCanvas');
+var ctx=canvas.getContext('2d');
+var W,H;
+
+function resize(){
+  W=canvas.width=window.innerWidth;
+  H=canvas.height=window.innerHeight;
+}
+resize();
+window.addEventListener('resize',resize);
+
+// Floating hearts
+var hearts=[];
+for(var i=0;i<40;i++){
+  hearts.push({
+    x:Math.random()*2000,
+    y:Math.random()*2000,
+    size:5+Math.random()*15,
+    speed:0.3+Math.random()*1,
+    drift:Math.random()*Math.PI*2,
+    driftSpeed:0.005+Math.random()*0.01,
+    opacity:0.05+Math.random()*0.15,
+    color:Math.random()>0.5?'#FF6090':'#FF80B0'
+  });
+}
+
+// Stars
+var stars=[];
+for(var i=0;i<80;i++){
+  stars.push({
+    x:Math.random()*2000,y:Math.random()*2000,
+    size:0.5+Math.random()*2,
+    twinkle:0.02+Math.random()*0.04,
+    offset:Math.random()*Math.PI*2,
+    brightness:0.3+Math.random()*0.6
+  });
+}
+
+// Sparkles
+var sparkles=[];
+for(var i=0;i<25;i++){
+  sparkles.push({
+    x:Math.random()*2000,y:Math.random()*2000,
+    size:1+Math.random()*3,
+    speed:0.2+Math.random()*0.4,
+    phase:Math.random()*Math.PI*2,
+    color:['#FFD700','#FF80C0','#FF6090','#FFA0C0'][Math.floor(Math.random()*4)]
+  });
+}
+
+var frameCount=0;
+
+function drawHeart(x,y,size,color){
+  ctx.fillStyle=color;ctx.beginPath();
+  ctx.moveTo(x,y+size*0.3);
+  ctx.bezierCurveTo(x,y,x-size,y,x-size,y+size*0.3);
+  ctx.bezierCurveTo(x-size,y+size*0.7,x,y+size,x,y+size*1.2);
+  ctx.bezierCurveTo(x,y+size,x+size,y+size*0.7,x+size,y+size*0.3);
+  ctx.bezierCurveTo(x+size,y,x,y,x,y+size*0.3);
+  ctx.fill();
+}
+
+function drawBg(){
+  frameCount++;
+  ctx.clearRect(0,0,W,H);
+
+  // Dark gradient
+  var grad=ctx.createLinearGradient(0,0,0,H);
+  grad.addColorStop(0,'#0a0414');
+  grad.addColorStop(0.5,'#140820');
+  grad.addColorStop(1,'#0a0414');
+  ctx.fillStyle=grad;ctx.fillRect(0,0,W,H);
+
+  // Stars
+  for(var i=0;i<stars.length;i++){
+    var s=stars[i];
+    var sx=((s.x+frameCount*0.05)%W+W)%W;
+    var sy=((s.y+frameCount*0.02)%H+H)%H;
+    var twinkle=0.3+0.7*Math.abs(Math.sin(frameCount*s.twinkle+s.offset));
+    ctx.globalAlpha=twinkle*s.brightness;
+    ctx.fillStyle='#FFF';ctx.beginPath();
+    ctx.arc(sx,sy,s.size,0,Math.PI*2);ctx.fill();
+  }
+  ctx.globalAlpha=1;
+
+  // Hearts
+  for(var i=0;i<hearts.length;i++){
+    var h=hearts[i];
+    var hx=((h.x+Math.sin(frameCount*h.driftSpeed+h.drift)*30-frameCount*0.1)%(W+100)+W+100)%(W+100)-50;
+    var hy=((h.y-frameCount*h.speed*0.3)%(H+100)+H+100)%(H+100)-50;
+    ctx.globalAlpha=h.opacity;
+    drawHeart(hx,hy,h.size,h.color);
+  }
+  ctx.globalAlpha=1;
+
+  // Sparkles
+  for(var i=0;i<sparkles.length;i++){
+    var sp=sparkles[i];
+    var spx=((sp.x+Math.sin(frameCount*0.01+sp.phase)*40)%(W+50)+W+50)%(W+50)-25;
+    var spy=((sp.y-frameCount*sp.speed*0.2)%(H+50)+H+50)%(H+50)-25;
+    var pulse=0.3+0.7*Math.abs(Math.sin(frameCount*0.06+sp.phase));
+    ctx.globalAlpha=pulse*0.4;
+    ctx.fillStyle=sp.color;ctx.beginPath();
+    ctx.arc(spx,spy,sp.size*pulse,0,Math.PI*2);ctx.fill();
+    // Cross sparkle
+    ctx.strokeStyle=sp.color;ctx.lineWidth=0.5;
+    ctx.beginPath();ctx.moveTo(spx-sp.size*2*pulse,spy);ctx.lineTo(spx+sp.size*2*pulse,spy);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(spx,spy-sp.size*2*pulse);ctx.lineTo(spx,spy+sp.size*2*pulse);ctx.stroke();
+  }
+  ctx.globalAlpha=1;
+
+  requestAnimationFrame(drawBg);
+}
+
+drawBg();
+
+/* ============================================================
+   INTRO → LETTER TRANSITION
+============================================================ */
+var oIntro=document.getElementById('oIntro');
+var letterContainer=document.getElementById('letterContainer');
+
+document.getElementById('btnOpen').addEventListener('click',function(){
+  oIntro.classList.remove('show');
+  setTimeout(function(){
+    letterContainer.classList.add('show');
+  },500);
+});
+
+/* ============================================================
+   LIGHTBOX
+============================================================ */
+var lightbox=document.getElementById('lightbox');
+var lbImg=document.getElementById('lbImg');
+var currentLbIndex=0;
+var totalPhotos=20;
+
+window.openLightbox=function(index){
+  currentLbIndex=index;
+  lbImg.src='assets/'+(index+1)+'.jpg';
+  lightbox.classList.add('show');
+};
+
+document.getElementById('lbClose').addEventListener('click',function(){
+  lightbox.classList.remove('show');
+});
+
+lightbox.addEventListener('click',function(e){
+  if(e.target===lightbox) lightbox.classList.remove('show');
+});
+
+document.getElementById('lbPrev').addEventListener('click',function(e){
+  e.stopPropagation();
+  currentLbIndex=(currentLbIndex-1+totalPhotos)%totalPhotos;
+  lbImg.src='assets/'+(currentLbIndex+1)+'.jpg';
+});
+
+document.getElementById('lbNext').addEventListener('click',function(e){
+  e.stopPropagation();
+  currentLbIndex=(currentLbIndex+1)%totalPhotos;
+  lbImg.src='assets/'+(currentLbIndex+1)+'.jpg';
+});
+
+// Keyboard navigation for lightbox
+document.addEventListener('keydown',function(e){
+  if(!lightbox.classList.contains('show')) return;
+  if(e.key==='Escape') lightbox.classList.remove('show');
+  if(e.key==='ArrowLeft'){
+    currentLbIndex=(currentLbIndex-1+totalPhotos)%totalPhotos;
+    lbImg.src='assets/'+(currentLbIndex+1)+'.jpg';
+  }
+  if(e.key==='ArrowRight'){
+    currentLbIndex=(currentLbIndex+1)%totalPhotos;
+    lbImg.src='assets/'+(currentLbIndex+1)+'.jpg';
+  }
+});
+
+// Swipe in lightbox
+var lbStartX=0;
+lightbox.addEventListener('touchstart',function(e){
+  lbStartX=e.touches[0].clientX;
+},{passive:true});
+lightbox.addEventListener('touchend',function(e){
+  var dx=e.changedTouches[0].clientX-lbStartX;
+  if(dx>50){
+    currentLbIndex=(currentLbIndex-1+totalPhotos)%totalPhotos;
+    lbImg.src='assets/'+(currentLbIndex+1)+'.jpg';
+  } else if(dx<-50){
+    currentLbIndex=(currentLbIndex+1)%totalPhotos;
+    lbImg.src='assets/'+(currentLbIndex+1)+'.jpg';
+  }
+},{passive:true});
+
+/* ============================================================
+   SCROLL ANIMATIONS — fade in elements on scroll
+============================================================ */
+var observerOptions={threshold:0.15};
+var fadeObserver=new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if(entry.isIntersecting){
+      entry.target.style.opacity='1';
+      entry.target.style.transform='translateY(0)';
+    }
+  });
+},observerOptions);
+
+// Observe all message paragraphs and photo strips
+setTimeout(function(){
+  var elements=document.querySelectorAll('.lc-message p, .photo-strip, .lc-signature');
+  elements.forEach(function(el){
+    el.style.opacity='0';
+    el.style.transform='translateY(30px)';
+    el.style.transition='opacity 0.8s ease, transform 0.8s ease';
+    fadeObserver.observe(el);
+  });
+},600);
+
+// Prevent context menu
+document.addEventListener('contextmenu',function(e){e.preventDefault();});
+
+})();
+</script>
+</body>
+</html>
